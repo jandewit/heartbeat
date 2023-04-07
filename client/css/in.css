@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.noUi-connect {
+    background-color: #EB174B;
+}
+
+.noUi-tooltip {
+    top: 120%;
+    bottom: auto !important;
+}

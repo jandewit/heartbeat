@@ -1,0 +1,66 @@
+<html>
+<head>
+  <title>Heartbeat</title>
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="vendor/nouislider.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="vendor/jquery-3.6.0.min.js"></script>
+  <script src="vendor/jquery-ui.min.js"></script>
+  <script src="vendor/jquery.ui.touch-punch.min.js"></script>
+  <script src="vendor/nouislider.min.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+    <div class="flex flex-col justify-center p-8">
+        <div>
+            <label class="input-group input-group-vertical ">
+                <span>My age</span>
+                <input type="number" class="input input-bordered" />
+            </label>
+        </div>
+        <div class="mt-4">
+                <span class="font-bold">My gender</span>
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                      <span class="label-text">Female</span> 
+                      <input type="radio" name="radio-10" class="radio" />
+                    </label>
+                </div>                
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                      <span class="label-text">Male</span> 
+                      <input type="radio" name="radio-10" class="radio" />
+                    </label>
+                </div>                
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                      <span class="label-text">Non-binary</span> 
+                      <input type="radio" name="radio-10" class="radio" />
+                    </label>
+                </div>  
+                
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                      <span class="label-text"><input type="text" placeholder="Enter here" class="input input-bordered input-sm" /></span> 
+                      <input type="radio" name="radio-10" class="radio" />
+                    </label>
+                </div>                
+            </label>            
+        </div>
+        <div class="font-bold mt-4">My profile picture</div>
+        <div class="mt-2">Todo</div>
+        <div class="font-bold mt-4">My interests</div>
+        <div class="mt-2">
+            <div class="badge badge-outline">Tennis</div> <div class="badge">Escape room</div> <div class="badge badge-outline">Cooking</div>
+        </div>
+        <div class="font-bold mt-4">I am looking for</div>
+        <div class="font-bold mt-4">Show me</div>
+        <div class="font-bold mt-4">Search distance</div>
+        <div id="slider_distance" class="mt-4 ml-4"></div>
+        <div class="font-bold mt-20">Show ages</div>        
+        <div id="slider_age" class="mt-4 ml-4"></div>
+    </div>
+
+</body>
+</html>

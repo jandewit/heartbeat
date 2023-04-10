@@ -30,6 +30,8 @@ $(document).ready(function() {
     $('.trait').on('click', trait_clicked);
     $('.relationship_goal').on('click', relationship_goal_clicked);
     $('.interest').on('click', interest_clicked);
+    $('.music').on('click', music_clicked);
+    $('.holiday').on('click', holiday_clicked);
     $('.pref_gender_radio').on('change', pref_gender_selected);
 
     var range_distance = document.getElementById('slider_distance');
@@ -194,7 +196,7 @@ function check_enable_profilebutton() {
     else if (profile_step == 2) {
         $('#btn_profile_previous').removeClass('btn-disabled');
 
-        if ($('.trait.badge-secondary').length > 0 && $('.interest.badge-secondary').length > 0 && $('.relationship_goal.badge-secondary').length > 0) {
+        if ($('.trait.badge-secondary').length > 0 && $('.interest.badge-secondary').length > 0 && $('.relationship_goal.badge-secondary').length > 0 && $('.music.badge-secondary').length > 0 && $('.holiday.badge-secondary').length > 0) {
             $('#btn_profile_next').removeClass('btn-disabled');
         }
         else {
@@ -257,7 +259,9 @@ function btn_profile_next_click() {
                 is_distance: $('#display_distance').is(':checked') ? 1 : 0,
                 is_traits: $('#display_traits').is(':checked') ? 1 : 0,
                 is_intentions: $('#display_intentions').is(':checked') ? 1 : 0,
-                is_interests: $('#display_interests').is(':checked') ? 1 : 0            
+                is_interests: $('#display_interests').is(':checked') ? 1 : 0,
+                is_music: $('#display_music').is(':checked') ? 1 : 0,
+                is_holiday: $('#display_holiday').is(':checked') ? 1 : 0
             }, function(ret_info) {
                 console.log(ret_info);
                 const d = new Date();
@@ -294,7 +298,7 @@ function trait_clicked() {
         $(this).removeClass('badge-secondary');
         $(this).addClass('badge-outline');
     }
-    else if ($('.trait.badge-secondary').length < 2) {
+    else if ($('.trait.badge-secondary').length < 3) {
         $(this).removeClass('badge-outline');
         $(this).addClass('badge-secondary');
     }
@@ -316,7 +320,33 @@ function interest_clicked() {
         $(this).removeClass('badge-secondary');
         $(this).addClass('badge-outline');
     }
-    else if ($('.interest.badge-secondary').length < 3) {
+    else if ($('.interest.badge-secondary').length < 4) {
+        $(this).removeClass('badge-outline');
+        $(this).addClass('badge-secondary');
+    }
+
+    check_enable_profilebutton();
+}
+
+function music_clicked() {
+    if ($(this).hasClass('badge-secondary')) {
+        $(this).removeClass('badge-secondary');
+        $(this).addClass('badge-outline');
+    }
+    else if ($('.music.badge-secondary').length < 2) {
+        $(this).removeClass('badge-outline');
+        $(this).addClass('badge-secondary');
+    }
+
+    check_enable_profilebutton();
+}
+
+function holiday_clicked() {
+    if ($(this).hasClass('badge-secondary')) {
+        $(this).removeClass('badge-secondary');
+        $(this).addClass('badge-outline');
+    }
+    else if ($('.holiday.badge-secondary').length < 2) {
         $(this).removeClass('badge-outline');
         $(this).addClass('badge-secondary');
     }

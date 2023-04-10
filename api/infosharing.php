@@ -29,7 +29,9 @@
                         is_distance = :is_distance,
                         is_traits = :is_traits,
                         is_intentions = :is_intentions,
-                        is_interests = :is_interests";
+                        is_interests = :is_interests,
+                        is_music = :is_music,
+                        is_holiday = :is_holiday";
 
             $stmt = $this->conn->prepare($sqlQuery);
 
@@ -41,6 +43,8 @@
             $this->is_traits=htmlspecialchars(strip_tags($this->is_traits));
             $this->is_intentions=htmlspecialchars(strip_tags($this->is_intentions));
             $this->is_interests=htmlspecialchars(strip_tags($this->is_interests));
+            $this->is_music=htmlspecialchars(strip_tags($this->is_music));
+            $this->is_holiday=htmlspecialchars(strip_tags($this->is_holiday));
 
             // bind data
             $stmt->bindParam(":participant_id", $this->participant_id);
@@ -51,6 +55,8 @@
             $stmt->bindParam(":is_traits", $this->is_traits);
             $stmt->bindParam(":is_intentions", $this->is_intentions);
             $stmt->bindParam(":is_interests", $this->is_interests);
+            $stmt->bindParam(":is_music", $this->is_music);
+            $stmt->bindParam(":is_holiday", $this->is_holiday);
 
             if($stmt->execute()){
                return true;

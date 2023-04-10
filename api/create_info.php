@@ -26,6 +26,8 @@
     $item->is_traits = $data['is_traits'];
     $item->is_intentions = $data['is_intentions'];
     $item->is_interests = $data['is_interests'];
+    $item->is_music = $data['is_music'];
+    $item->is_holiday = $data['is_holiday'];
 
     if($item->createInfoSharing()){
         echo '{"status": "OK"}';

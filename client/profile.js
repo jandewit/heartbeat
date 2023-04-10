@@ -255,6 +255,7 @@ function btn_profile_next_click() {
             $.post('/api/create_info.php', {
                 id: ret.id,
                 is_initial: 1,
+                day_nr: 1,
                 is_age: $('#display_age').is(':checked') ? 1 : 0,
                 is_distance: $('#display_distance').is(':checked') ? 1 : 0,
                 is_traits: $('#display_traits').is(':checked') ? 1 : 0,

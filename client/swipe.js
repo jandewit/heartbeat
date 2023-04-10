@@ -536,3 +536,9 @@ function load_profiles() {
         }
       });    
 }
+
+function close_overview() {
+    $.post('/api/update_part.php', {id: id, current_step: 2, current_day: self.day}, function(ret) {
+        window.location.href = 'index.html';
+    });
+}

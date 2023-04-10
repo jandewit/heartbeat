@@ -18,6 +18,32 @@
             $this->conn = $db;
         }
 
+        public function getInformationSharing(){
+            $this->random_id=htmlspecialchars(strip_tags($this->random_id));
+
+              $sqlQuery = "SELECT
+                          is_age,
+                          is_distance,
+                          is_traits,
+                          is_intentions,
+                          is_interests,
+                          is_music,
+                          is_holiday
+                        FROM
+                          ". $this->db_table ."
+                      WHERE
+                         participant_id = ? AND is_initial = ? AND day_nr = ?
+                      LIMIT 0,1";
+              $stmt = $this->conn->prepare($sqlQuery);
+              $stmt->bindParam(1, $this->participant_id);
+              $stmt->bindParam(2, $this->is_initial);
+              $stmt->bindParam(3, $this->day_nr);
+              $stmt->execute();
+              $dataRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+              return $dataRow;
+        }        
+
         public function createInfoSharing(){
             $sqlQuery = "INSERT INTO
                         ". $this->db_table ."

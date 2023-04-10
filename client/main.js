@@ -17,9 +17,7 @@ else {
 
                 // Check if we have reached a new day, and update the day accordingly
                 if (parseInt(day) !== parseInt(ret.current_day)) {
-                    alert('new day!');
                     $.post('/api/update_part.php', {id: id, current_step: 1, current_day: parseInt(day)}, function(ret) {
-                        alert('fixed it! ' + ret);
                         window.location.href = 'swipe.html';
                     });
                 }
@@ -28,6 +26,12 @@ else {
                     if (parseInt(ret.current_step) == 1) {
                         window.location.href = 'swipe.html';
                     }    
+                    else if (parseInt(ret.current_step) == 2) {
+                        window.location.href = 'evaluate.html';
+                    }
+                    else {
+                        alert('Done!');
+                    }
                 }
             });    
         });

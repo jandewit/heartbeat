@@ -5,7 +5,6 @@ if (document.cookie !== undefined && document.cookie !== '') {
 
 
 let profile = {
-    pic_uploaded: false,
     age: '',
     gender: '',
     pref_gender: -1,
@@ -160,10 +159,7 @@ function pic_uploaded() {
             $('#profile_pic_container').html(img);
         };
 
-        reader.readAsDataURL(this.files[0]);   
-        
-        profile.pic_uploaded = true;
-        check_enable_profilebutton();
+        reader.readAsDataURL(this.files[0]);           
     }
 }
 
@@ -187,7 +183,7 @@ function check_enable_profilebutton() {
     if (profile_step == 1) {
         $('#btn_profile_previous').addClass('btn-disabled');
 
-        if (profile.gender !== '' && profile.pic_uploaded && profile.age !== '') {
+        if (profile.gender !== '' && profile.age !== '') {
             $('#btn_profile_next').removeClass('btn-disabled');
         }
         else {

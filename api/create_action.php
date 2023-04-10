@@ -18,10 +18,15 @@
     $part_id = $p->getSingleParticipant();
 
     $item->participant_id = $part_id;
+    $item->day_nr = $data['day_nr'];
     $item->picture_id = $data['picture_id'];
     $item->name = $data['name'];
     $item->order_id = $data['order_id'];
     $item->is_liked = $data['is_liked'];
+    $item->is_engaged_with = $data['is_engaged_with'];
+    $item->time_shown = $data['time_shown'];
+    $item->was_match = $data['was_match'];
+    $item->num_profile_items = $data['num_profile_items'];
 
     if($item->createAction()){
         echo '{"status": "OK"}';

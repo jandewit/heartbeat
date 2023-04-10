@@ -29,12 +29,180 @@
       <h1 class="text-4xl text-white font-medium h-24">Time to swipe!<br /><br /><span class="text-2xl" id="text_day">Day </span></h1>
     </div>
     <div class="absolute bottom-10 w-full text-center">
-      <button class="btn btn-lg gap-2 animate-bounce btn-primary text-white" onclick="go_profile_intro()">
+      <div id="txt_loading" class="text-xl">Loading...</div>
+      <button id="btn_start" class="hidden btn btn-lg gap-2 animate-bounce btn-primary text-white" onclick="start_swiping()">
         Let's begin!
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
       </button>
     </div>
   </div>
   <!-- End of splash screen -->
+
+  <!-- Swiping screen -->
+  <div id="swiping" class="fixed top-0 left-0 w-full h-full hidden">
+    <!-- The button to open modal -->
+    <label for="match-modal" class="btn hidden"></label>
+
+    <input type="checkbox" id="match-modal" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box bg-[#e01559] text-center text-white">
+        <h3 class="font-bold text-2xl">It's a match! ✨</h3>
+        <img class="mask mask-heart h-3/6 inline" id="match_img" src="" />
+        <div class="modal-action">
+          <label for="my-modal" class="btn w-full bg-white text-primary" onclick="engage()" id="btn_engage">Say hi 👋 to Jan</label>
+        </div>
+        <div class="modal-action">
+          <label for="my-modal" class="btn w-full bg-white text-primary" onclick="close_match()">Continue swiping</label>          
+        </div>
+      </div>
+    </div>    
+    <div id="nomatch" class="absolute w-full p-4 z-20 animate-[bounce_0.5s_ease-in-out] hidden">
+      <div class="alert alert-warning shadow-lg">
+        <div>
+          <span id="txt_nomatch">You and <strong>Jan</strong> did not match.</span>
+        </div>
+      </div>    
+    </div>
+    <div class="absolute top-0 left-0 w-full h-full">
+      <svg class="fixed w-full h-full h-9/12">
+        <defs>
+          <radialGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+            <stop offset="0%" style="stop-color:rgb(0, 237, 149);
+            stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgb(0,174,234);stop-opacity:1" />
+          </radialGradient>
+        </defs>
+        <ellipse cx="50%" cy="0%" rx="120%" ry="80%" fill="url(#grad2)" />
+      </svg>    
+    </div>
+    <div id="profiles_stack" class="absolute stack w-full top-0 pt-4">
+
+    </div>
+    <div class="absolute bottom-4 w-full flex z-10">
+      <button class="btn btn-circle btn-primary btn-lg text-white ml-8" onclick="notlike()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <img src="img/heartbeat_logo.svg" class="inline h-16 flex-1 mt-1" />
+      <button class="btn btn-circle btn-secondary btn-lg text-white mr-8" onclick="like()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+      </button>
+    </div>
+  </div>
+  <!-- End of swiping screen -->  
+
+  <!-- Overview of matches -->
+  <div id="overview_matches" class="fixed top-0 left-0 w-full h-full hidden">
+
+
+    <div class="mt-2 w-full">
+      <div class="w-full text-center h-16">
+        <img src="img/heartbeat_logo.svg" class="h-16 inline" />
+      </div>
+      <div class="p-4 h-28">
+        <span class="font-medium font-serif text-primary">Today's matches:</span>
+        <div class="font-serif text-center w-full mt-4" id="msg_no_matches">No new matches without conversation.</div>
+        <div class="avatar-group -space-x-6 mt-1" id="overview_match_container">
+          <!--<div class="avatar">
+            <div class="w-12">
+              <img src="img/0/1.jpg" />
+            </div>
+          </div>
+          <div class="avatar">
+            <div class="w-12">
+              <img src="img/0/1.jpg" />
+            </div>
+          </div>
+          <div class="avatar">
+            <div class="w-12">
+              <img src="img/0/1.jpg" />
+            </div>
+          </div>
+          <div class="avatar">
+            <div class="w-12">
+              <img src="img/0/1.jpg" />
+            </div>
+          </div>-->
+          <div class="avatar placeholder hidden" id="more_matches">
+            <div class="w-12 bg-neutral-focus text-neutral-content">
+              <span id="more_matches_count">+99</span>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+      </div>  
+      <div class="px-4 mt-8 mb-4 font-medium font-serif text-primary">Today's messages:</div>
+      <div class="px-4 h-[calc(100%-22rem)] overflow-auto">
+        <div class="overflow-auto pb-4" id="overview_conversations">
+            <div class="font-serif text-center w-full" id="msg_no_conversations">No new conversations.</div>
+            <!--<div class="card card-side bg-white shadow mb-4">
+              <div class="avatar p-4">
+                <div class="w-16 h-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                  <img src="img/0/1.jpg" />
+                </div>
+              </div>             
+              <div class="card-body py-4">
+                <h2 class="card-title text-base">Eva</h2>
+                <p class="text-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 inline -mt-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> Hi! 👋</p>
+              </div>
+            </div>          
+
+            <div class="card card-side bg-white shadow mb-4">
+              <div class="avatar p-4">
+                <div class="w-16 h-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                  <img src="img/0/1.jpg" />
+                </div>
+              </div>             
+              <div class="card-body py-4">
+                <h2 class="card-title text-base">Eva</h2>
+                <p class="text-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 inline -mt-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> Hi! 👋</p>
+              </div>
+            </div>          
+
+            <div class="card card-side bg-white shadow mt-4">
+              <div class="avatar p-4">
+                <div class="w-16 h-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                  <img src="img/0/1.jpg" />
+                </div>
+              </div>             
+              <div class="card-body py-4">
+                <h2 class="card-title text-base">Eva</h2>
+                <p class="text-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 inline -mt-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> Hi! 👋</p>
+              </div>
+            </div>          
+
+            <div class="card card-side bg-white shadow mt-4">
+              <div class="avatar p-4">
+                <div class="w-16 h-16 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
+                  <img src="img/0/1.jpg" />
+                </div>
+              </div>             
+              <div class="card-body py-4">
+                <h2 class="card-title text-base">Eva</h2>
+                <p class="text-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3 inline -mt-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                </svg> Hi! 👋</p>
+              </div>
+            </div>    -->      
+
+        </div>
+      </div>    
+
+      <div class="mb-10 w-full text-center h-28 mt-4">
+        <button class="btn btn-lg gap-2 btn-primary text-white" onclick="close_overview()">
+          Continue
+        </button>
+      </div>
+  
+    </div>
+
+  </div>
+  <!-- End of overview of matches -->
+  
 </body>
 </html>

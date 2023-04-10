@@ -14,6 +14,6 @@
 
     $item->random_id = $data['id'];
 
-    $result = $item->getSingleParticipantProgress();
-    echo '{"current_day": "' . $result['current_day'] . '", "current_step": "' . $result['current_step'] . '"}';
+    $result = $item->getSingleParticipantTotal();
+    echo '{"current_day": "' . $result['current_day'] . '", "current_step": "' . $result['current_step'] . '", "exp_condition": "' . $result['exp_condition'] . '", "gender_profiles": "' . $result['gender_profiles'] . '", "pref_distance": "' . $result['pref_distance'] . '", "pref_min_age": "' . $result['pref_min_age'] . '", "pref_max_age": "' . $result['pref_max_age'] . '"}';
 ?>

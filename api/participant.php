@@ -86,12 +86,17 @@
               return $dataRow['participant_id'];
         }
 
-        public function getSingleParticipantProgress() {
+        public function getSingleParticipantTotal() {
             $this->random_id=htmlspecialchars(strip_tags($this->random_id));
 
               $sqlQuery = "SELECT
                           current_day,
-                          current_step
+                          current_step,
+                          exp_condition,
+                          gender_profiles,
+                          pref_distance,
+                          pref_min_age,
+                          pref_max_age
                         FROM
                           ". $this->db_table ."
                       WHERE

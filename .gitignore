@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Profile pictures
+client/img/0/
+client/img/1/
+
+# OS X
+.DS_Store

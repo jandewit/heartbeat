@@ -229,7 +229,10 @@ function close_match() {
         console.log(xhr.responseText);
     });
 
-    $('#profile_' + self.current_profile).remove();
+    $('#profile_' + self.current_profile).animate({left: '500px', top: '-500px', opacity: '0'}, function() {
+        $(this).remove();
+    });
+    //$('#profile_' + self.current_profile).remove();
     $('#profile_' + (self.current_profile+2)).removeClass('!hidden');
     self.time_profile_show = getCurrentDateTimeMySql();
 
@@ -255,7 +258,11 @@ function notlike() {
 
     let profile = $('#profile_' + self.current_profile);
 
-    $('#profile_' + self.current_profile).remove();
+    $('#profile_' + self.current_profile).animate({left: '-500px', top: '-500px', opacity: '0'}, function() {
+        $(this).remove();
+    });
+
+    //$('#profile_' + self.current_profile).remove();
     if (self.current_profile < self.names[self.day-1][self.gender].length - 2) {
         $('#profile_' + (self.current_profile+2)).removeClass('!hidden');
     }
@@ -349,7 +356,11 @@ function nomatch(profile) {
     clearTimeout(self.nomatch_timeout);
     $('#nomatch').show();
 
-    $('#profile_' + self.current_profile).remove();
+    $('#profile_' + self.current_profile).animate({left: '500px', top: '-500px', opacity: '0'}, function() {
+        $(this).remove();
+    });
+        
+    //$('#profile_' + self.current_profile).remove();
     $('#profile_' + (self.current_profile+2)).removeClass('!hidden');
     self.time_profile_show = getCurrentDateTimeMySql();
 
@@ -505,4 +516,23 @@ function load_profiles() {
 
         $('#profiles_stack').append(card);
     }
+
+    $('.card').draggable({
+        scroll: false,
+        revert: function() {
+          if ($(this).position().left > -(0.25 * $(window).width()) && $(this).position().left < (0.25 * $(window).width())) {
+            return true;
+          }
+      
+          return false;
+        },
+        stop: function() {
+          if ($(this).position().left < -(0.25 * $(window).width())) {
+            notlike();
+          }
+          else if ($(this).position().left > (0.25 * $(window).width())) {
+            like();
+          }
+        }
+      });    
 }

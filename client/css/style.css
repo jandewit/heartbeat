@@ -7428,10 +7428,6 @@ html {
   inset: -0.25rem;
 }
 
-.-top-0 {
-  top: -0px;
-}
-
 .bottom-10 {
   bottom: 2.5rem;
 }
@@ -7494,10 +7490,6 @@ html {
 
 .ml-4 {
   margin-left: 1rem;
-}
-
-.ml-6 {
-  margin-left: 1.5rem;
 }
 
 .mr-10 {
@@ -8768,15 +8760,6 @@ html {
   padding-right: 0px;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-.pt-8 {
-  padding-top: 2rem;
-}
-
 .text-left {
   text-align: left;
 }
@@ -8850,6 +8833,11 @@ html {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {

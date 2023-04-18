@@ -14,6 +14,10 @@ else {
 
         // Get the participant's current day and step
         $.get('/api/get_day.php', {id: self.id}, function(day) {
+            if (parseInt(day) > 5) {
+                window.location.href = 'index.html';
+            }
+            
             $.get('/api/get_part.php', {id: self.id}, function(ret) {
                 let step = parseInt(ret.current_step);
 
@@ -35,7 +39,7 @@ function start() {
 
     let initial = (self.day == 1 ? 1 : 0);
 
-    $.get('/api/get_info.php', {random_id: self.id, day_nr: self.day, is_initial: initial}, function(ret) {
+    $.get('/api/get_info.php', {random_id: self.id, day_nr: (self.day == 1 ? 1 : (self.day - 1)), is_initial: initial}, function(ret) {
         $('#display_age').prop('checked', parseInt(ret.is_age) == 1);
         $('#display_distance').prop('checked', parseInt(ret.is_distance) == 1);
         $('#display_traits').prop('checked', parseInt(ret.is_traits) == 1);

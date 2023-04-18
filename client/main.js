@@ -12,6 +12,11 @@ else {
         
         // Get the participant's current day and step
         $.get('/api/get_day.php', {id: id}, function(day) {
+            if (parseInt(day) > 5) {
+                alert('Done!');
+                return;
+            }
+
             $.get('/api/get_part.php', {id: id}, function(ret) {
                 let step = parseInt(ret.current_step);
 

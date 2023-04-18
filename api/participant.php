@@ -6,7 +6,8 @@
         private $db_table = "participant";
         // Columns
         public $random_id;
-        public $qualtrics_id;
+        public $qualtrics_id_d1;
+        public $qualtrics_id_d5;
         public $exp_condition;
         public $gender_profiles;
         public $pref_distance;
@@ -26,7 +27,8 @@
                         ". $this->db_table ."
                     SET
                         random_id = :random_id,
-                        qualtrics_id = :qualtrics_id,
+                        qualtrics_id_d1 = :qualtrics_id_d1,
+                        qualtrics_id_d5 = :qualtrics_id_d5,
                         exp_condition = :exp_condition,
                         gender_profiles = :gender_profiles,
                         pref_distance = :pref_distance,
@@ -40,7 +42,8 @@
 
             // sanitize
             $this->random_id=htmlspecialchars(strip_tags($this->random_id));
-            $this->qualtrics_id=htmlspecialchars(strip_tags($this->qualtrics_id));
+            $this->qualtrics_id_d1=htmlspecialchars(strip_tags($this->qualtrics_id_d1));
+            $this->qualtrics_id_d5=htmlspecialchars(strip_tags($this->qualtrics_id_d5));
             $this->exp_condition=htmlspecialchars(strip_tags($this->exp_condition));
             $this->gender_profiles=htmlspecialchars(strip_tags($this->gender_profiles));
             $this->pref_distance=htmlspecialchars(strip_tags($this->pref_distance));
@@ -52,7 +55,8 @@
 
             // bind data
             $stmt->bindParam(":random_id", $this->random_id);
-            $stmt->bindParam(":qualtrics_id", $this->qualtrics_id);
+            $stmt->bindParam(":qualtrics_id_d1", $this->qualtrics_id_d1);
+            $stmt->bindParam(":qualtrics_id_d5", $this->qualtrics_id_d5);
             $stmt->bindParam(":exp_condition", $this->exp_condition);
             $stmt->bindParam(":gender_profiles", $this->gender_profiles);
             $stmt->bindParam(":pref_distance", $this->pref_distance);

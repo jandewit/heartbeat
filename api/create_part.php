@@ -13,7 +13,8 @@
     $data = $_POST;
 
     $item->random_id = md5('yoo' . strval(time()) . '123hdnv');
-    $item->qualtrics_id = $data['qualtrics_id'];
+    $item->qualtrics_id_d1 = $data['qualtrics_id_d1'];
+    $item->qualtrics_id_d5 = $data['qualtrics_id_d5'];
     $item->exp_condition = $data['exp_condition'];
     $item->gender_profiles = $data['gender_profiles'];
     $item->pref_distance = $data['pref_distance'];

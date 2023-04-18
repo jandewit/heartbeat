@@ -242,8 +242,9 @@ function btn_profile_next_click() {
     else {
         // Store the participant information and set the cookie.
         $.post('/api/create_part.php', {
-            qualtrics_id: '', // @TODO
-            exp_condition: 0, // @TODO
+            qualtrics_id_d1: '', // @TODO
+            qualtrics_id_d5: '', // @TODO
+            exp_condition: 1, // @TODO
             gender_profiles: profile.pref_gender,
             pref_distance: profile.pref_distance,
             pref_min_age: profile.pref_age_min,

@@ -253,6 +253,9 @@ function btn_profile_next_click() {
         }
     }
     else {
+        // Send gender and age to Qualtrics
+        parent.postMessage({msg: 'profile_data', gender: profile.gender, age: profile.age}, '*');
+
         // Store the participant information and set the cookie.
         $.post('/api/create_part.php', {
             qualtrics_id_d1: qualtrics_id,

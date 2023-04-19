@@ -155,5 +155,27 @@
             }
             return false;
         }
+
+        public function updateParticipantQualtricsD5(){
+            $sqlQuery = "UPDATE ". $this->db_table ."
+                    SET
+                        qualtrics_id_d5 = :qualtrics_id_d5
+                    WHERE random_id = :random_id";
+
+            $stmt = $this->conn->prepare($sqlQuery);
+
+            // sanitize
+            $this->random_id=htmlspecialchars(strip_tags($this->random_id));
+            $this->qualtrics_id_d5=htmlspecialchars(strip_tags($this->qualtrics_id_d5));
+
+            // bind data
+            $stmt->bindParam(":random_id", $this->random_id);
+            $stmt->bindParam(":qualtrics_id_d5", $this->qualtrics_id_d5);
+
+            if($stmt->execute()){
+               return true;
+            }
+            return false;
+        }        
     }
 ?>

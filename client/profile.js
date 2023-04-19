@@ -23,6 +23,9 @@ let initial_display = {
 
 let profile_step = 1;
 
+let qualtrics_id = '';
+let condition = 0;
+
 $(document).ready(function() {
     $('#profilepic_upload').on('change', pic_uploaded);
     $('.gender_radio').on('change', gender_selected);
@@ -33,6 +36,16 @@ $(document).ready(function() {
     $('.music').on('click', music_clicked);
     $('.holiday').on('click', holiday_clicked);
     $('.pref_gender_radio').on('change', pref_gender_selected);
+
+    $(window).on('message', function(event) {
+        inbound = event.originalEvent.data;
+      
+        if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
+            console.log(inbound);
+            qualtrics_id = inbound.qualtrics_id;
+            condition = inbound.condition;
+        }    
+    });
 
     var range_distance = document.getElementById('slider_distance');
 
@@ -242,9 +255,9 @@ function btn_profile_next_click() {
     else {
         // Store the participant information and set the cookie.
         $.post('/api/create_part.php', {
-            qualtrics_id_d1: '', // @TODO
-            qualtrics_id_d5: '', // @TODO
-            exp_condition: 1, // @TODO
+            qualtrics_id_d1: qualtrics_id,
+            qualtrics_id_d5: '', // Will be filled in later
+            exp_condition: condition,
             gender_profiles: profile.pref_gender,
             pref_distance: profile.pref_distance,
             pref_min_age: profile.pref_age_min,

@@ -23,6 +23,7 @@ self.min_age = -1;
 self.max_age = -1;
 self.distance = -1;
 self.condition = -1;
+self.qualtrics_id = '';
 
 self.num_loaded = 0;
 
@@ -451,7 +452,7 @@ else {
             if (parseInt(day) > 5) {
                 window.location.href = 'index.html';
             }
-            
+
             $.get('/api/get_part.php', {id: self.id}, function(ret) {
                 let step = parseInt(ret.current_step);
 
@@ -472,6 +473,17 @@ else {
         });
     }
 }
+
+$(document).ready(function() {
+    $(window).on('message', function(event) {
+        inbound = event.originalEvent.data;
+      
+        if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
+            console.log(inbound);
+            self.qualtrics_id = inbound.qualtrics_id;
+        }    
+    });
+});
 
 function start_swiping() {
     $('#splash').hide();
@@ -848,6 +860,13 @@ function load_profiles() {
 
 function close_overview() {
     $.post('/api/update_part.php', {id: id, current_step: 2, current_day: self.day}, function(ret) {
-        window.location.href = 'index.html';
+        if (self.day == 5) {
+            $.post('/api/update_qualtricsd5.php', {id: id, qualtrics_id_d5: self.qualtrics_id}, function(ret) {
+                window.location.href = 'index.html';
+            });    
+        }
+        else {
+            window.location.href = 'index.html';
+        }
     });
 }

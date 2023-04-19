@@ -119,8 +119,9 @@ function btn_next_click() {
             }, function(ret_info) {
                 console.log(ret_info);
 
-                // @TODO: show done
+                // Show done
                 $.post('/api/update_part.php', {id: id, current_step: 3, current_day: self.day}, function(ret) {
+                    parent.postMessage({msg: 'fullscreen_off'}, '*');
                     window.location.href = 'index.html';
                 });        
             });

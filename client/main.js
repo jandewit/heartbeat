@@ -13,7 +13,7 @@ else {
         // Get the participant's current day and step
         $.get('/api/get_day.php', {id: id}, function(day) {
             if (parseInt(day) > 5) {
-                alert('Done!');
+                document.body.innerHTML = 'You are done with the experiment!';
                 return;
             }
 
@@ -35,7 +35,7 @@ else {
                         window.location.href = 'evaluate.html';
                     }
                     else {
-                        alert('Done!');
+                        document.body.innerHTML = 'You are done for today!';
                     }
                 }
             });    

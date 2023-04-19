@@ -265,12 +265,11 @@ function btn_profile_next_click() {
                 is_music: $('#display_music').is(':checked') ? 1 : 0,
                 is_holiday: $('#display_holiday').is(':checked') ? 1 : 0
             }, function(ret_info) {
-                console.log(ret_info);
                 const d = new Date();
                 let exdays = 31;
                 d.setTime(d.getTime() + (exdays*24*60*60*1000));
                 let expires = "expires="+ d.toUTCString();
-                document.cookie = "id=" + ret.id + ";" + expires + ";path=/";
+                document.cookie = "id=" + ret.id + ";" + expires + ";path=/;SameSite=None;Secure";
                 window.location.href = 'swipe.html';                
             });
         });

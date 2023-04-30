@@ -480,7 +480,9 @@ $(document).ready(function() {
       
         if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
             console.log(inbound);
-            self.qualtrics_id = inbound.qualtrics_id;
+            let obj = JSON.parse(inbound);
+            console.log(obj);
+            self.qualtrics_id = obj.qualtrics_id;
         }    
     });
 });
@@ -824,17 +826,10 @@ function load_profiles() {
             </div>
         </div>`);
 
-        card.find('img').on('load', function(e) {
-            self.num_loaded++;
-
-            if (self.num_loaded == names.length) {
-                $('#profile_0').removeClass('!hidden');
-                $('#profile_1').removeClass('!hidden');
-                $('#txt_loading').hide();
-                $('#btn_start').removeClass('hidden');
-            }
-        });
-
+        card.find('img').filter(function() {
+            return this.complete;
+        }).each(image_loaded).end().on('load', image_loaded);
+    
         $('#profiles_stack').append(card);
     }
 
@@ -861,12 +856,24 @@ function load_profiles() {
 function close_overview() {
     $.post('/api/update_part.php', {id: id, current_step: 2, current_day: self.day}, function(ret) {
         if (self.day == 5) {
-            $.post('/api/update_qualtricsd5.php', {id: id, qualtrics_id_d5: self.qualtrics_id}, function(ret) {
-                window.location.href = 'index.html';
+            $.post('/api/update_qualtrics_d5.php', {id: id, qualtrics_id_d5: self.qualtrics_id}, function(ret) {
+                window.location.href = 'evaluate.html';
             });    
         }
         else {
-            window.location.href = 'index.html';
+            window.location.href = 'evaluate.html';
         }
     });
+}
+
+function image_loaded() {
+    self.num_loaded++;
+    console.log(self.num_loaded);
+
+    if (self.num_loaded == names.length) {
+        $('#profile_0').removeClass('!hidden');
+        $('#profile_1').removeClass('!hidden');
+        $('#txt_loading').hide();
+        $('#btn_start').removeClass('hidden');
+    }
 }

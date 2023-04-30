@@ -26,6 +26,8 @@ let profile_step = 1;
 let qualtrics_id = '';
 let condition = 0;
 
+let saving = false;
+
 $(document).ready(function() {
     $('#profilepic_upload').on('change', pic_uploaded);
     $('.gender_radio').on('change', gender_selected);
@@ -42,8 +44,10 @@ $(document).ready(function() {
       
         if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
             console.log(inbound);
-            qualtrics_id = inbound.qualtrics_id;
-            condition = inbound.condition;
+            let obj = JSON.parse(inbound);
+            console.log(obj);
+            qualtrics_id = obj.qualtrics_id;
+            condition = obj.condition;
         }    
     });
 
@@ -253,6 +257,12 @@ function btn_profile_next_click() {
         }
     }
     else {
+        if (saving) {
+            return;
+        }
+
+        saving = true;
+        
         // Send gender and age to Qualtrics
         parent.postMessage({msg: 'profile_data', gender: profile.gender, age: profile.age}, '*');
 

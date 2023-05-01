@@ -1,7 +1,9 @@
 // We should only be here if no cookie exists for this user.
 if (document.cookie !== undefined && document.cookie !== '') {
-    window.location.href = 'index.html';
+    window.location.href = 'index.html' + location.search;
 }
+
+params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
 
 
 let profile = {
@@ -39,17 +41,15 @@ $(document).ready(function() {
     $('.holiday').on('click', holiday_clicked);
     $('.pref_gender_radio').on('change', pref_gender_selected);
 
-    $(window).on('message', function(event) {
-        inbound = event.originalEvent.data;
-      
-        if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
-            console.log(inbound);
-            let obj = JSON.parse(inbound);
-            console.log(obj);
-            qualtrics_id = obj.qualtrics_id;
-            condition = obj.condition;
-        }    
-    });
+    console.log(params);
+
+    if (params['q'] !== undefined) {
+        qualtrics_id = params['q'];
+    }
+
+    if (params['c'] !== undefined) {
+        condition = params['c'];
+    }
 
     var range_distance = document.getElementById('slider_distance');
 
@@ -295,8 +295,8 @@ function btn_profile_next_click() {
                 let exdays = 31;
                 d.setTime(d.getTime() + (exdays*24*60*60*1000));
                 let expires = "expires="+ d.toUTCString();
-                document.cookie = "id=" + ret.id + ";" + expires + ";path=/;SameSite=None;Secure";
-                window.location.href = 'swipe.html';                
+                document.cookie = "id=" + ret.id + ";" + expires + ";path=/";
+                window.location.href = 'swipe.html' + location.search;                
             });
         });
     }

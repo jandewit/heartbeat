@@ -1,3 +1,5 @@
+params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
+
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -441,7 +443,7 @@ self.names = [
 
 // Check if we should be here
 if (document.cookie === undefined) {
-    window.location.href = 'index.html';
+    window.location.href = 'index.html' + location.search;
 }
 else {
     if (document.cookie.startsWith('id=')) {
@@ -450,7 +452,7 @@ else {
         // Get the participant's current day and step
         $.get('/api/get_day.php', {id: self.id}, function(day) {
             if (parseInt(day) > 5) {
-                window.location.href = 'index.html';
+                window.location.href = 'index.html' + location.search;
             }
 
             $.get('/api/get_part.php', {id: self.id}, function(ret) {
@@ -458,7 +460,7 @@ else {
 
                 // Check if we have reached a new day, and update the day accordingly
                 if (parseInt(day) !== parseInt(ret.current_day) || step !== 1) {
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.html' + location.search;
                 }
                 else {
                     self.day = parseInt(day);
@@ -475,16 +477,10 @@ else {
 }
 
 $(document).ready(function() {
-    $(window).on('message', function(event) {
-        inbound = event.originalEvent.data;
-      
-        if (inbound != '' && inbound != 'fullscreen_on' && inbound != 'fullscreen_off') {
-            console.log(inbound);
-            let obj = JSON.parse(inbound);
-            console.log(obj);
-            self.qualtrics_id = obj.qualtrics_id;
-        }    
-    });
+    console.log(params);
+    if (params['q'] !== undefined) {
+        self.qualtrics_id = params['q'];
+    }    
 });
 
 function start_swiping() {
@@ -857,11 +853,11 @@ function close_overview() {
     $.post('/api/update_part.php', {id: id, current_step: 2, current_day: self.day}, function(ret) {
         if (self.day == 5) {
             $.post('/api/update_qualtrics_d5.php', {id: id, qualtrics_id_d5: self.qualtrics_id}, function(ret) {
-                window.location.href = 'evaluate.html';
+                window.location.href = 'evaluate.html' + location.search;
             });    
         }
         else {
-            window.location.href = 'evaluate.html';
+            window.location.href = 'evaluate.html' + location.search;
         }
     });
 }

@@ -6,7 +6,7 @@ self.step = 1;
 
 // Check if we should be here
 if (document.cookie === undefined) {
-    window.location.href = 'index.html';
+    window.location.href = 'index.html' + location.search;
 }
 else {
     if (document.cookie.startsWith('id=')) {
@@ -15,7 +15,7 @@ else {
         // Get the participant's current day and step
         $.get('/api/get_day.php', {id: self.id}, function(day) {
             if (parseInt(day) > 5) {
-                window.location.href = 'index.html';
+                window.location.href = 'index.html' + location.search;
             }
             
             $.get('/api/get_part.php', {id: self.id}, function(ret) {
@@ -23,7 +23,7 @@ else {
 
                 // Check if we have reached a new day, and update the day accordingly
                 if (parseInt(day) !== parseInt(ret.current_day) || step !== 2) {
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.html' + location.search;
                 }
                 else {
                     self.day = parseInt(day);
@@ -122,7 +122,7 @@ function btn_next_click() {
                 // Show done
                 $.post('/api/update_part.php', {id: id, current_step: 3, current_day: self.day}, function(ret) {
                     parent.postMessage({msg: 'fullscreen_off'}, '*');
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.html' + location.search;
                 });        
             });
 

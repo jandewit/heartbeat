@@ -15,7 +15,7 @@ In the **db** folder within this repository there is the **db.sql** file which c
 Note that the prototype currently won't run without setting up the database (it crashes after creating a profile).
 
 ### Adding profile images
-In this repository we did not include any of the profile images we used. The prototype is tested with images that are 900x1350 in size (10:15). These should be uploaded in the **client/img/0/** (female) and **client/img/1/** (male) folders. The filenames should range from 0.jpg to 150.jpg (in our case, for 5 days: 30 pictures per day, so 1--30 for day one, 31--40 for day two, and so on).
+In this repository we did not include any of the profile images we used. The prototype is tested with images that are 900x1350 in size (10:15). These should be uploaded in the **client/img/0/** (female) and **client/img/1/** (male) folders. The filenames should range from 1.jpg to 150.jpg (in our case, for 5 days: 30 pictures per day, so 1--30 for day one, 31--40 for day two, and so on).
 
 ## Running the prototype
 Running the prototype is a simple matter of referring participants to the /client/ address. The experimental condition can be set by adding the URL parameter **c**. In addition, we integrated our prototype in the Qualtrics survey environment, and as such it is also possible to add the parameter **q** to add the Qualtrics participant ID to the database (in table **participant**). This allows researchers to merge the behavioral data from the prototype with other (demographical, selfreported) data in Qualtrics. An example could be (if running locally):

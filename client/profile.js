@@ -5,7 +5,7 @@ if (document.cookie !== undefined && document.cookie !== '') {
 
 params={};location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){params[k]=v});
 
-
+// Default values
 let profile = {
     age: '',
     gender: '',
@@ -15,6 +15,7 @@ let profile = {
     pref_age_max: 30
 }
 
+// Default values for personal information sharing
 let initial_display = {
     age: true,
     distance: true,
@@ -25,12 +26,14 @@ let initial_display = {
 
 let profile_step = 1;
 
+// These can be set via URL parameters
 let qualtrics_id = '';
 let condition = 0;
 
 let saving = false;
 
 $(document).ready(function() {
+    // Events to check if all required information is filled out and we can proceed to the next step
     $('#profilepic_upload').on('change', pic_uploaded);
     $('.gender_radio').on('change', gender_selected);
     $('#profile_age').on('change', age_change);
@@ -41,8 +44,7 @@ $(document).ready(function() {
     $('.holiday').on('click', holiday_clicked);
     $('.pref_gender_radio').on('change', pref_gender_selected);
 
-    console.log(params);
-
+    // Read URL parameters and update variables
     if (params['q'] !== undefined) {
         qualtrics_id = params['q'];
     }

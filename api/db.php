@@ -1,10 +1,12 @@
 <?php
+    error_reporting(E_ALL ^ E_WARNING ^ E_DEPRECATED);
+
     class Database {
-        private $host = "127.0.0.1";
-        private $port = "8889";
+        private $host = "localhost";
+        private $port = "3306";
         private $database_name = "heartbeat";
         private $username = "root";
-        private $password = "root"; 
+        private $password = ""; 
         public $conn;
         public function getConnection(){
             $this->conn = null;

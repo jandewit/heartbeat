@@ -477,7 +477,7 @@ else {
 }
 
 $(document).ready(function() {
-    console.log(params);
+    // Read URL parameters
     if (params['q'] !== undefined) {
         self.qualtrics_id = params['q'];
     }    
@@ -616,15 +616,7 @@ function like() {
         return;
     }
 
-    console.log('-----');
-    console.log('id: ' + self.id);
     let profile = $('#profile_' + self.current_profile);
-    console.log('picture_id: ' + profile.data('picture'));
-    console.log('name: ' + profile.data('name'));
-    console.log('order_id: ' + (self.current_profile + 1));
-    console.log('is_liked: 1');
-    console.log('time_shown: ' + self.time_profile_show);
-    console.log('num_profile_items: ' + profile.data('num-items'));
 
     // Decide if match
     // If this is the first like, we always follow the experimental condition, otherwise it's an 80/20 chance.
@@ -656,8 +648,6 @@ function like() {
             }            
         }
     }
-    console.log('was_match: ?');
-    console.log('-----');
 }
 
 function match(profile) {

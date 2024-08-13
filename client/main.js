@@ -1,6 +1,4 @@
 // Use the cookie and the API to check which day and stage the participant is at.
-
-//console.log(document.cookie);
 let target = '';
 
 $(document).ready(function() {
@@ -42,6 +40,7 @@ $(document).ready(function() {
                     }
                 });    
             }).fail(function() {
+                // Remove the cookie and start over
                 document.cookie = "id=delete;expires=Thu, 01-Jan-1970 00:00:01 GMT;path=/";
                 window.location.href = 'index.html' + location.search;
             });

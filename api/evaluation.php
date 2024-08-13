@@ -1,4 +1,6 @@
 <?php
+    error_reporting(E_ALL ^ E_WARNING ^ E_DEPRECATED);
+
     class Evaluation {
         // Connection
         private $conn;

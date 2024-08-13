@@ -4,7 +4,7 @@ self.id = -1;
 self.day = -1;
 self.step = 1;
 
-// Check if we should be here
+// Check if we should be here, if not redirect to index
 if (document.cookie === undefined) {
     window.location.href = 'index.html' + location.search;
 }
@@ -35,10 +35,13 @@ else {
 }
 
 function start() {
+    // Bind the onChange event to see if we are done and can let the user proceed
+    // This should be updated if you choose to add additional evaluation questions
     $('.q1').on('change', q1_change);
 
     let initial = (self.day == 1 ? 1 : 0);
 
+    // Retrieve previous settings
     $.get('/api/get_info.php', {random_id: self.id, day_nr: (self.day == 1 ? 1 : (self.day - 1)), is_initial: initial}, function(ret) {
         $('#display_age').prop('checked', parseInt(ret.is_age) == 1);
         $('#display_distance').prop('checked', parseInt(ret.is_distance) == 1);
@@ -51,6 +54,7 @@ function start() {
     });    
 }
 
+// Hide intro and go to actual questionnaire
 function go_evaluation() {
     $('#eval_intro').hide();
     $('#profile').removeClass('hidden');
@@ -76,6 +80,7 @@ function check_enable_button() {
 }
 
 function btn_next_click() {
+    // Move to updating the personal information sharing after answering the self-report question
     if (self.step == 1) {
         $("#eval_" + self.step).hide();
         self.step += 1;
